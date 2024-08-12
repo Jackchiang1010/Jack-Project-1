@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        function addVariant() {
+            const variantContainer = document.getElementById('variantContainer');
+            const variantDiv = document.createElement('div');
+            variantDiv.className = 'variant';
+            variantDiv.innerHTML = `
+                <label for="code">variants_color_code:</label><br>
+                <input name="code" id="code"/><br><br>
+
+                <label for="name">color_name:</label><br>
+                <input name="name" id="name"/><br><br>
+
+                <label for="size">variants_size:</label><br>
+                <input name="size" id="size"/><br><br>
+
+                <label for="stock">variants_stock:</label><br>
+                <input name="stock" id="stock"/><br><br>
+            `;
+            variantContainer.appendChild(variantDiv);
+        }
+    </script>
+
+</head>
+<body>
+
+<main>
+    <form action="/admin/product" method="POST" enctype="multipart/form-data">
+        <h2>about products:</h2>
+
+        <label for="category">product_category:</label><br>
+        <input name="category" id="category"/><br><br>
+
+        <label for="title">product_title:</label><br>
+        <input name="title" id="title"/><br><br>
+
+        <label for="description">product_description:</label><br>
+        <input name="description" id="description"/><br><br>
+
+        <label for="price">product_price:</label><br>
+        <input name="price" id="price"/><br><br>
+
+        <label for="texture">product_texture:</label><br>
+        <input name="texture" id="texture"/><br><br>
+
+        <label for="wash">product_wash:</label><br>
+        <input name="wash" id="wash"/><br><br>
+
+        <label for="place">product_place:</label><br>
+        <input name="place" id="place"/><br><br>
+
+        <label for="note">product_note:</label><br>
+        <input name="note" id="note"/><br><br>
+
+        <label for="story">product_story:</label><br>
+        <input name="story" id="story"/><br><br>
+
+        <div id="variantContainer">
+            <h2>about product_variants:</h2>
+
+            <div class="variant">
+
+                <label for="code">variants_color_code:</label><br>
+                <input name="code" id="code"/><br><br>
+
+                <label for="name">color_name:</label><br>
+                <input name="name" id="name"/><br><br>
+
+                <label for="size">variants_size:</label><br>
+                <input name="size" id="size"/><br><br>
+
+                <label for="stock">variants_stock:</label><br>
+                <input name="stock" id="stock"/><br><br>
+
+            </div>
+        </div>
+
+        <button type="button" onclick="addVariant()">add variant</button>
+
+        <h2>product_main_image:</h2>
+
+        <input type="file" data-target="file-uploader" accept="image/*" name="productMainImage"/><br><br>
+
+        <h2>product_images:</h2>
+
+        <input type="file" data-target="file-uploader" accept="image/*" multiple="multiple"
+               name="productImages"/><br><br>
+
+        <button type="submit">新增商品</button>
+    </form>
+
+</main>
+
+</body>
+</html>

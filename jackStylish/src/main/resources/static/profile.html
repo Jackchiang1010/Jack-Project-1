@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>STYLiSH</title>
+
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+<header>
+    <a href="index.html" class="index">
+        <img src="images/logo.png" width="258px" height="48px">
+    </a>
+    <a href="index.html?category=women" class="category-women">女裝</a>
+    <a href="index.html?category=men" class="category-men">男裝</a>
+    <a href="index.html?category=accessories" class="category-accessories">配件</a>
+    <form action="/search" method="get">
+        <input type="search" name="query" aria-label="搜尋">
+
+        <a href="#" class="search">
+            <img src="images/search.png" class="default">
+            <img src="images/search-hover.png" class="hover">
+        </a>
+
+    </form>
+    <div class="header-links">
+
+        <a href="#" class="cart">
+            <img src="images/cart.png" class="default">
+            <img src="images/cart-hover.png" class="hover">
+        </a>
+
+        <a href="profile.html" class="member">
+            <img src="images/member.png" class="default">
+            <img src="images/member-hover.png" class="hover">
+        </a>
+    </div>
+</header>
+
+
+<main>
+    <div id="user-container"></div>
+
+</main>
+
+<footer>
+    <div class="footer-container">
+        <div class="about">
+            <a href="#">關於Stylish</a>
+            <a href="#">服務條款</a>
+            <a href="#">隱私政策</a>
+            <a href="#">聯絡我們</a>
+            <a href="#">FAQ</a>
+        </div>
+
+        <div class="social-media">
+            <a href="#">
+                <img src="images/line.png">
+            </a>
+
+            <a href="#">
+                <img src="images/twitter.png">
+            </a>
+
+            <a href="#">
+                <img src="images/facebook.png">
+            </a>
+        </div>
+
+        <p class="copyright">&copy; 2022 All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="js/profile.js"></script>
+</body>
+</html>

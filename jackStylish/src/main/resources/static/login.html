@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FB Login</title>
+
+</head>
+<body>
+<div class="container">
+    <button onclick="facebookLogin()">
+        Use Facebook to login
+    </button>
+</div>
+
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1681495259264281', //FB APP ID (application ID)
+            cookie: true,
+            xfbml: true,
+            version: 'v20.0'
+        });
+
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    };
+
+    function facebookLogin() {
+        FB.login(function (response) {
+            if (response.authResponse) {
+                // user success login Facebook
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function (response) {
+                    console.log('Good to see you, ' + response.name + '.');
+                });
+
+                // get Token
+                var accessToken = response.authResponse.accessToken;
+                console.log('Access Token: ' + accessToken);
+
+                // Token send to back-end
+                sendAccessTokenToBackend(accessToken);
+            } else {
+                console.log('User cancelled login or failed.');
+            }
+        }, {scope: 'public_profile,email'});
+    }
+
+    function sendAccessTokenToBackend(accessToken) {
+        // use fetch API or other HTTP client to send Token to back-end
+        fetch('/api/1.0/user/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                provider: 'facebook',
+                access_token: accessToken
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    // load FB SDK
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/zh_TW/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+</script>
+</body>
+</html>

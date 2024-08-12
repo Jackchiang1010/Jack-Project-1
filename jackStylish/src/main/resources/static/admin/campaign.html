@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function loadProducts() {
+            const productNameSelect = document.getElementById('productId');
+            productNameSelect.innerHTML = '';
+            let nextPage = 1;
+            let products = [];
+
+            function fetchProducts() {
+                fetch(`/api/1.0/products/all?paging=${nextPage}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        products = products.concat(data.data);
+                        if (data.next_paging) {
+                            nextPage = data.next_paging;
+                            fetchProducts();
+                        } else {
+                            populateSelect(products);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching products:', error));
+            }
+
+            function populateSelect(products) {
+                products.forEach(product => {
+                    const option = document.createElement('option');
+                    option.value = product.id;
+                    option.textContent = product.title;
+                    productNameSelect.appendChild(option);
+                });
+            }
+
+            fetchProducts();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            loadProducts();
+        });
+    </script>
+</head>
+<body>
+<main>
+    <form action="/api/1.0/campaigns/create" method="POST" enctype="multipart/form-data">
+        <h2>about products:</h2>
+
+        <label for="productId">product_id:</label><br>
+        <select name="productId" id="productId">
+            <option value="">Select a product</option>
+        </select><br><br>
+
+        <h2>product_main_image:</h2>
+
+        <input type="file" data-target="file-uploader" accept="image/*" name="picture"/><br><br>
+
+        <label for="story">product_story:</label><br>
+        <input name="story" id="story"/><br><br>
+
+        <button type="submit">新增活動</button>
+    </form>
+</main>
+</body>
+</html>
